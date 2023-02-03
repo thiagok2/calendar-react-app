@@ -1,0 +1,78 @@
+/***
+  Template 
+*/
+
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { FormControl, InputLabel, makeStyles, Select } from '@material-ui/core';
+
+interface IEventDialogPros {
+  open: boolean,
+  onClose: () => void
+}
+export function EventFormDialog(props: IEventDialogPros) {
+
+  return (
+    <div>
+      <Dialog open={props.open} onClose={props.onClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Novo evento</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="normal"
+            label="Descrição"
+            type="text"
+            fullWidth
+          />
+
+          <TextField
+            margin="normal"
+            label="Data"
+            type="date"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+          <TextField
+            margin="normal"
+            label="Hora"
+            type="time"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+          <FormControl className={classes.formControl}  margin='normal' fullWidth>
+            <InputLabel htmlFor="select-calendar">Agenda</InputLabel>
+            <Select 
+              inputProps={{
+                name: 'calendarId',
+                id: 'select-calendar',
+              }}
+            >
+              <MenuItem value={1}>IFAL</MenuItem>
+              <MenuItem value={2}>Trabalho</MenuItem>
+            </Select>
+          </FormControl>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={props.onClose}>
+            Cancelar
+          </Button>
+          <Button onClick={props.onClose} color="primary">
+            Salvar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}

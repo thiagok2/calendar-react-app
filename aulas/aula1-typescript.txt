@@ -1,0 +1,64 @@
+1. Typescript
+  Tipagem
+  Manutentabilidade
+  Autocomplete
+
+  Javasctipt + Typescript
+    Tipo any (default)
+    any is a type that disables type checking and effectively allows all types to be used.
+
+  Ex.: Tipagem
+  const numero:number = 1;
+  const nome:string = 'thiago';
+  cosnt ativo:boolean = false;
+
+  const notas: number[] = [1,10,7];
+
+  const objeto: {nome:string, idade: number} = {nome: 'thiago', idade: 10};
+
+  interface Aluno {
+    matricula: number,
+    nome: string,
+    dataNascimento?: string /*opcional*/
+  }
+
+  let objAluno: Aluno = {
+    matricula: 1234,
+    nome: 'thiago'
+  }
+
+  objAluno.campoNaoExistente = 10; /* erro do compilador */
+
+  /* Definir mais de um tipo */
+
+  let valor: string | number = 10;
+
+  /* Definir string literal */
+  type Alinhamento = 'esquerda' | 'direita'  | 'centro';
+
+  /* Junção de Tipos */
+  interface Programador {
+    linguagem: string,
+    polica: Alinhamento
+  }
+
+  let aluno: Aluno & Programador = {
+    linguagem: 'javascript',
+    nome: 'thiago',
+    idade: 36
+  }
+
+  /* Tipagem de funçao*/
+
+  type funcaoMatematica2 = (a: number, b: number) => number;
+
+  const fDivisao:funcaoMatematica2 = 
+    (a: number, b; number) => {
+      return a/b;
+    }
+
+  /* Funçoes com uso de Templates */
+  function getMaior<T>(a:T, b: T): T{
+    return a > b ? a : b;
+  }
+

@@ -1,0 +1,103 @@
+/*Recebendo evento para edicao, os calendários e funcoes*/
+
+interface IEventDialogPros {
+  event: IEditingEvent | null,
+  onCancel: () => void,
+  onSave: () => void,
+  calendars: ICalendar[]
+}
+export function EventFormDialog(props: IEventDialogPros) {
+  const {event, calendars ,onCancel, onSave} = props;
+  return (
+    <div>
+      <Dialog open={!!event} onClose={onCancel} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Novo evento</DialogTitle>
+        <DialogContent>
+          {event && (
+            <>
+              <TextField
+                autoFocus
+                margin="normal"
+                label="Descrição"
+                type="text"
+                fullWidth
+                value={event!.desc}
+              />
+
+              <TextField
+                margin="normal"
+                label="Data"
+                type="date"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={event!.date}
+              />
+
+              <TextField
+                margin="normal"
+                label="Hora"
+                type="time"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={event!.time}
+              />
+
+              <FormControl className={classes.formControl}  margin='normal' fullWidth>
+                <InputLabel htmlFor="select-calendar">Agenda</InputLabel>
+                <Select 
+                  inputProps={{
+                    name: 'calendarId',
+                    id: 'select-calendar',
+                  }}
+                >
+                  {
+                    calendars.map((calendar) => (
+                      <MenuItem key={calendar.id} value={calendar.id}>{calendar.name}</MenuItem>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+          </>
+          )}
+          
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onCancel}>
+            Cancelar
+          </Button>
+          <Button onClick={onSave} color="primary">
+            Salvar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
+-------------------
+
+export default function CalendarScreen(props:CalendarScreenProps) {
+
+...
+  const [editingEvent, setEditingEventEdit] = useState<IEditingEvent | null>(null);
+...
+
+  function closeDialog(){
+    setEditingEventEdit(null);
+  }
+....
+
+        <EventFormDialog 
+           event={editingEvent}
+           onCancel={closeDialog}
+           onSave={() => {
+             closeDialog();
+
+           }}
+           calendars={calendars}/>       
+  )
+}

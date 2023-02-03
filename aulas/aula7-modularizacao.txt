@@ -1,0 +1,7 @@
+Criar os componentes
+
+  CalendarsView -  O seletor de agendas
+  CalendarHeader - Topo da página
+
+  Dica: Copiar tudo e retirar o que nao eh necessário;
+  Componente pai mantém os comportamentos e dados e passa tudo via props

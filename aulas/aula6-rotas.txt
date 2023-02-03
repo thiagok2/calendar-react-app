@@ -1,0 +1,25 @@
+0. Criando a estrutura raiz em App.jest
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+App.js - Topo do app
+<Router>
+      <Switch>
+        <Route path='/calendar/:month'>
+          <CalendarScreen/>
+        </Route>
+        <Redirect to={{pathname: '/calendar/2023-01'}}/>
+      </Switch>
+</Router>
+
+Params
+CalendarScreen
+  const params = useParams<month: string>()
+
+
+  https://www.freecodecamp.org/portuguese/news/um-guia-completo-de-react-router-para-iniciantes-incluindo-router-hooks/

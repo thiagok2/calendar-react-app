@@ -1,0 +1,31 @@
+../CalendarScreeen.ts
+
+function openNewEvent(date:string){
+  setEditingEventEdit({date, desc: '', calendarId: calendars[0].id})
+}
+function onClickDay(date: string){
+  openNewEvent(date);
+}
+
+function onClickEvent(event: IEvent){
+  setEditingEventEdit(event);
+}
+
+../CalendarTable
+
+const { weeks, onClickDay, onClickEvent} = props;
+
+function handleClick(evt: React.MouseEvent, date: string){
+  if(evt.target === evt.currentTarget){
+    onClickDay(date);
+  }
+};
+
+function handleClickEvent(evt: React.MouseEvent, event: IEvent){
+  onClickEvent(event);
+}
+
+...
+<TableCell key={cellDay.date} align="center" onClick={(evt) => handleClick(evt, cellDay.date)}>
+...
+button className={classes.event} key={event.id} onClick={(evt) => handleClickEvent(evt, event)}>

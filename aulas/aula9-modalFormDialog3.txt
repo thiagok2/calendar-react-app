@@ -1,0 +1,97 @@
+
+interface IEventDialogPros {
+  event: IEditingEvent | null,
+  onCancel: () => void,
+  onSave: () => void,
+  calendars: ICalendar[]
+}
+export function EventFormDialog(props: IEventDialogPros) {
+  
+  const [event, setEvent ] = useState<IEditingEvent | null>(props.event);
+  
+  useEffect(() => {
+    setEvent(props.event);
+  }, [props.event]);
+
+  function save(evt: React.FormEvent){
+    evt.preventDefault();
+    createEventEndpoint(event!).then(props.onSave)
+    console.log('save')
+  }
+
+  return (
+    <div>
+      <Dialog open={!!event} onClose={props.onCancel} aria-labelledby="form-dialog-title">
+        <form onSubmit={save}>
+          <DialogTitle id="form-dialog-title">Novo evento</DialogTitle>
+          <DialogContent>
+            
+            {event && (
+              <>
+                <TextField
+                  autoFocus
+                  margin="normal"
+                  label="Descrição"
+                  type="text"
+                  fullWidth
+                  value={event!.desc} onChange={(e) => setEvent({...event, desc: e.target.value})}
+                />
+
+                <TextField
+                  margin="normal"
+                  label="Data"
+                  type="date"
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={event!.date}
+                  onChange={(e) => setEvent({...event, date: e.target.value})}
+                />
+
+                <TextField
+                  margin="normal"
+                  label="Hora"
+                  type="time"
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={event!.time}
+                  onChange={(e) => setEvent({...event, time: e.target.value})}
+                />
+
+                <FormControl className={classes.formControl}  margin='normal' fullWidth>
+                  <InputLabel htmlFor="select-calendar">Agenda</InputLabel>
+                  <Select 
+                    value={props.calendars[0].id}
+                    inputProps={{
+                      name: 'calendarId',
+                      id: 'select-calendar',
+                    }}
+                    onChange={(e) => setEvent({...event, calendarId: e.target.value as number})}
+                  >
+                    {
+                      props.calendars.map((calendar) => (
+                        <MenuItem key={calendar.id} value={calendar.id}>{calendar.name}</MenuItem>
+                      ))
+                    }
+                  </Select>
+                </FormControl>
+            </>
+            )}
+            
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={props.onCancel}>
+              Cancelar
+            </Button>
+            <Button color="primary" type='submit'>
+              Salvar
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+    </div>
+  );
+}

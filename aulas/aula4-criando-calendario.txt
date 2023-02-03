@@ -1,0 +1,44 @@
+Criar classe Helper
+Criar tipos
+
+  export interface ICalendar {
+    id: number;
+    name: string;
+    color: string;
+  }
+
+export interface IEditingEvent {
+  id?: number;
+  date: string;
+  time?: string;
+  desc: string;
+  calendarId: number;
+}
+
+export interface IEvent extends IEditingEvent {
+  id: number;
+}
+
+export interface ICalendarCell {
+  date: string;
+  dayOfMonth: number;
+  events: IEventWithCalendar[];
+}
+
+Criar função generateCalendar
+
+Dentro da CalendarScreen
+{
+  weeks.map((week, i) => 
+    <TableRow key={i}>
+      {week.map((cellDay) => (
+        <TableCell key={cellDay.date} align="center">
+          <div className={classes.dayOfMonth}>
+              {cellDay.dayOfMonth}
+          </div>
+        </TableCell>
+      ))}
+
+    </TableRow> 
+  )
+}

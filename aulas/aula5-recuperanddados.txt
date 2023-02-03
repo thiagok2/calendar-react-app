@@ -1,0 +1,56 @@
+0. Chamadas do backend ja implementadas
+  export function getCalendarsEndpoint(): Promise<ICalendar[]> {
+    return fetch("http://localhost:8080/calendars", {
+      credentials: "include",
+    }).then(handleResponse);
+  }
+
+  export function getEventsEndpoint(from: string, to: string): Promise<IEvent[]> {
+    return fetch(`http://localhost:8080/events?date_gte=${from}&date_lte=${to}&_sort=date,time`, {
+      credentials: "include",
+    }).then(handleResponse);
+  }
+
+1. Criando useEffect do carregamento
+
+  useEffect( () => {
+    Promise.all([
+      getCalendarsEndpoint(), 
+      getEventsEndpoint(firstDate, lastDate)
+    ]).then(([calendars, events]) => {
+      setCalendars(calendars);
+      setCalendarsSelecteds(calendars.map(c => true));
+      setEvents(events);
+    })
+    
+  },[firstDate, lastDate]);
+
+
+
+  ....
+
+  Ajustes no generateCalendar
+
+  ....
+
+  Muitos ajustes no css
+
+  ....
+
+  Trabalhando no checkbox:
+
+  function toggledCalendar(index:number){
+    const newValue = [...calendarsSelected];
+    newValue[index] = !newValue[index]
+    setCalendarsSelecteds(newValue);
+  }
+  
+  <FormGroup>
+      {calendars.map((c, index) => 
+        (<FormControlLabel key={c.id} 
+                          control={<Checkbox checked={calendarsSelected[index]}
+                          onChange={() => toggledCalendar(index)}
+                          style={{color: c.color}}/> 
+                          
+                          } label={c.name} />))}
+    </FormGroup>

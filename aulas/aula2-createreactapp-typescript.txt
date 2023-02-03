@@ -1,0 +1,34 @@
+1. Terminal
+  npx create-react-app my-app --template typescript
+  Resultados
+    jsx e react-types no package.json
+    tsconfig.json
+2. Definindo Tipo - Exemplo Agenda
+Calendar 
+{
+  id: 1
+  name: 'nees'
+  color: 'blue'
+}
+
+export interface ICalendar{
+  id:number,
+  name: string,
+  color: 'blue' | 'red' | 'green'
+}
+
+export interface IEvent 
+{
+  id: number,
+  name: 'Meeting',
+  time?: string,
+  desc: string,
+  calanderId: number
+}
+
+/** Exemplo de chamada */
+function getCaldendarAPI(): Promise<Calendar[]>{
+  fetch('calenders').then(response => {
+    return response.json();
+  })
+}

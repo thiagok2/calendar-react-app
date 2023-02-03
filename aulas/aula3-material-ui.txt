@@ -1,0 +1,102 @@
+https://mui.com/material-ui/getting-started/overview/
+
+Criar projeto
+  npx create-react-app app-calender --template typescript
+  ou
+  copiar package.json
+  copiar backaend.js
+
+Criou componente CalendarScreen
+
+Testar Button
+Usar Table
+
+Criar array
+  const DAYS_OF_WEEK = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
+
+Usar no <TableHeader>
+  <TableRow>
+    {DAYS_OF_WEEK.map((day) => (
+      <TableCell align="center" key={day}>
+        {day}
+      </TableCell>
+    ))}
+  </TableRow>
+
+Para testar no <TableBody>, 5x
+
+  <TableRow>
+    {DAYS_OF_WEEK.map((day) => (
+      <TableCell align="center" key={day}>
+        x
+      </TableCell>
+    ))}
+  </TableRow>
+
+Mostrar  Paper de component={Paper} e trocar por div
+
+Estilizando com makeStyle - materia-ui 4.0
+  CalendarScreen.js
+  const useStyles = makeStyles({
+    table: {
+      minHeight: '100%',
+      "& td ~ td, & th ~ th":{
+      borderLeft: '1px solid #ccc'
+    }
+    },
+  });
+
+  index.css - boa prática
+    font-family: 'Roboto'
+    ...
+    html, body, #root{
+      height: 100%;
+    }
+
+  Update height do Calendar
+  const useStyles = makeStyles({
+    root: {
+      height: '100%'
+    }
+    ,table: {
+      minHeight: '100%',
+      "& td ~ td, & th ~ th":{
+        borderLeft: '1px solid #ccc'
+      }
+    },
+  });
+
+Dividir a tela
+  Usar o component Box
+   <Box display={'flex'} height='100%' alignItems='stretch'>
+      <Box borderRight={'1px solid #ccc'} width='16em' padding='8px 16px'>
+  Usar o component Button
+    <Button variant="contained" color='primary'>Novo evento</Button>
+  Usar o component Checkbox *com label
+    <FormGroup>
+      <FormControlLabel control={<Checkbox defaultChecked/> } label="Agenda A" />
+      <FormControlLabel control={<Checkbox />} label="Agenda B" />
+    </FormGroup>
+
+Criar barra de menus no topo
+  Inserir Box para barra
+  Inserir botões para navegação
+  Material Icons
+
+  <Box display='flex' flexDirection='row'>
+    <IconButton>
+      <ChevronLeftIcon></ChevronLeftIcon>
+    </IconButton>
+    <IconButton>
+      <ChevronRightIcon></ChevronRightIcon>
+    </IconButton>
+    <Box component={'strong'} style={{flex: 1, display:'flex', alignItems:'center', paddingLeft: 10}}>
+      Mês Atual
+    </Box>
+    <IconButton>
+      <Avatar>
+        <PersonIcon></PersonIcon>
+      </Avatar>
+    </IconButton>
+  </Box>
+
